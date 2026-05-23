@@ -1,0 +1,322 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 30% 97%;
+    --foreground: 225 50% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 225 50% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 225 50% 12%;
+
+    --primary: 230 55% 22%;
+    --primary-foreground: 40 30% 97%;
+
+    --secondary: 38 80% 55%;
+    --secondary-foreground: 225 50% 12%;
+
+    --muted: 225 20% 92%;
+    --muted-foreground: 225 15% 45%;
+
+    --accent: 38 80% 55%;
+    --accent-foreground: 225 50% 12%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 225 20% 88%;
+    --input: 225 20% 88%;
+    --ring: 230 55% 22%;
+
+    --radius: 0.75rem;
+
+    --gold: 38 80% 55%;
+    --gold-light: 40 70% 75%;
+    --gold-dark: 35 85% 40%;
+    --navy: 230 55% 22%;
+    --navy-light: 228 45% 35%;
+    --navy-dark: 232 60% 14%;
+
+    --gradient-hero: linear-gradient(135deg, hsl(232 60% 14%), hsl(230 55% 22%), hsl(228 45% 35%));
+    --gradient-gold: linear-gradient(135deg, hsl(35 85% 40%), hsl(38 80% 55%), hsl(40 70% 75%));
+    --gradient-cta: linear-gradient(135deg, hsl(38 80% 55%), hsl(30 90% 50%));
+
+    --shadow-card: 0 4px 24px -4px hsl(230 55% 22% / 0.1);
+    --shadow-elevated: 0 12px 40px -8px hsl(230 55% 22% / 0.15);
+    --shadow-gold: 0 4px 20px -4px hsl(38 80% 55% / 0.4);
+
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer utilities {
+  .text-gradient-gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .bg-hero {
+    background: var(--gradient-hero);
+  }
+  .bg-gradient-gold {
+    background: var(--gradient-gold);
+  }
+  .bg-gradient-cta {
+    background: var(--gradient-cta);
+  }
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  .shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+  .shadow-gold {
+    box-shadow: var(--shadow-gold);
+  }
+
+  .btn-glow {
+    --glow-1: hsl(35 85% 40%);
+    --glow-2: hsl(38 80% 50%);
+    --glow-3: hsl(40 75% 60%);
+    --glow-4: hsl(42 70% 70%);
+    --glow-5: hsl(40 75% 60%);
+    --glow-6: hsl(38 80% 50%);
+    --glow-7: hsl(35 85% 40%);
+    position: relative;
+    overflow: visible;
+  }
+
+  .btn-glow::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: inherit;
+    padding: 3px;
+    background: linear-gradient(90deg, var(--glow-1), var(--glow-2), var(--glow-3), var(--glow-4), var(--glow-5), var(--glow-6), var(--glow-7));
+    background-size: 200%;
+    animation: glow-animate 2s infinite linear;
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .btn-glow::before {
+    content: '';
+    background: linear-gradient(90deg, var(--glow-1), var(--glow-2), var(--glow-3), var(--glow-4), var(--glow-5), var(--glow-6), var(--glow-7));
+    height: 30%;
+    width: 60%;
+    position: absolute;
+    bottom: -20%;
+    left: 20%;
+    z-index: -1;
+    background-size: 200%;
+    animation: glow-animate 2s infinite linear;
+    filter: blur(1rem);
+    border-radius: inherit;
+  }
+
+  .btn-glow:hover::after,
+  .btn-glow:hover::before {
+    animation: glow-animate 0.5s infinite linear;
+  }
+
+  .btn-no-glow::after,
+  .btn-no-glow::before {
+    display: none !important;
+  }
+}
+
+@keyframes glow-animate {
+  0% { background-position: 0; }
+  100% { background-position: 200%; }
+}
+
+/* Animated Logout Button */
+.logoutButton {
+  --figure-duration: 100ms;
+  --transform-figure: none;
+  --walking-duration: 100ms;
+  --transform-arm1: none;
+  --transform-wrist1: none;
+  --transform-arm2: none;
+  --transform-wrist2: none;
+  --transform-leg1: none;
+  --transform-calf1: none;
+  --transform-leg2: none;
+  --transform-calf2: none;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  display: block;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  outline: none;
+  padding: 0 0 0 20px;
+  perspective: 100px;
+  position: relative;
+  text-align: left;
+  width: 130px;
+  -webkit-tap-highlight-color: transparent;
+}
+.logoutButton::before {
+  background-color: hsl(var(--primary));
+  border-radius: 5px;
+  content: "";
+  display: block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transform: none;
+  transition: transform 50ms ease;
+  width: 100%;
+  z-index: 2;
+}
+.logoutButton:hover .door {
+  transform: rotateY(20deg);
+}
+.logoutButton:active::before {
+  transform: scale(0.96);
+}
+.logoutButton:active .door {
+  transform: rotateY(28deg);
+}
+.logoutButton.clicked::before {
+  transform: none;
+}
+.logoutButton.clicked .door {
+  transform: rotateY(35deg);
+}
+.logoutButton.door-slammed .door {
+  transform: none;
+  transition: transform 100ms ease-in 250ms;
+}
+.logoutButton.falling {
+  animation: logout-shake 200ms linear;
+}
+.logoutButton.falling .bang {
+  animation: logout-flash 300ms linear;
+}
+.logoutButton.falling .figure {
+  animation: logout-spin 1000ms infinite linear;
+  bottom: -1080px;
+  opacity: 0;
+  right: 1px;
+  transition: transform calc(var(--figure-duration) * 1ms) linear, bottom calc(var(--figure-duration) * 1ms) cubic-bezier(0.7, 0.1, 1, 1) 100ms, opacity calc(var(--figure-duration) * 0.25ms) linear calc(var(--figure-duration) * 0.75ms);
+  z-index: 1;
+}
+
+.logout-button-text {
+  color: hsl(var(--primary-foreground));
+  font-weight: 500;
+  position: relative;
+  z-index: 10;
+}
+
+.logoutButton svg {
+  display: block;
+  position: absolute;
+}
+
+.logoutButton .figure {
+  bottom: 5px;
+  fill: hsl(var(--secondary));
+  right: 18px;
+  transform: var(--transform-figure);
+  transition: transform calc(var(--figure-duration) * 1ms) cubic-bezier(0.2, 0.1, 0.8, 0.9);
+  width: 30px;
+  z-index: 4;
+}
+
+.logoutButton .door,
+.logoutButton .doorway {
+  bottom: 4px;
+  fill: hsl(var(--primary-foreground));
+  right: 12px;
+  width: 32px;
+}
+
+.logoutButton .door {
+  transform: rotateY(20deg);
+  transform-origin: 100% 50%;
+  transform-style: preserve-3d;
+  transition: transform 200ms ease;
+  z-index: 5;
+}
+.logoutButton .door path {
+  fill: hsl(var(--secondary));
+  stroke: hsl(var(--secondary));
+  stroke-width: 4;
+}
+
+.logoutButton .doorway {
+  z-index: 3;
+}
+
+.logoutButton .bang {
+  opacity: 0;
+}
+
+.logoutButton .arm1, .logoutButton .wrist1, .logoutButton .arm2, .logoutButton .wrist2,
+.logoutButton .leg1, .logoutButton .calf1, .logoutButton .leg2, .logoutButton .calf2 {
+  transition: transform calc(var(--walking-duration) * 1ms) ease-in-out;
+}
+
+.logoutButton .arm1 { transform: var(--transform-arm1); transform-origin: 52% 45%; }
+.logoutButton .wrist1 { transform: var(--transform-wrist1); transform-origin: 59% 55%; }
+.logoutButton .arm2 { transform: var(--transform-arm2); transform-origin: 47% 43%; }
+.logoutButton .wrist2 { transform: var(--transform-wrist2); transform-origin: 35% 47%; }
+.logoutButton .leg1 { transform: var(--transform-leg1); transform-origin: 47% 64.5%; }
+.logoutButton .calf1 { transform: var(--transform-calf1); transform-origin: 55.5% 71.5%; }
+.logoutButton .leg2 { transform: var(--transform-leg2); transform-origin: 43% 63%; }
+.logoutButton .calf2 { transform: var(--transform-calf2); transform-origin: 41.5% 73%; }
+
+@keyframes logout-spin {
+  from { transform: rotate(0deg) scale(0.94); }
+  to { transform: rotate(359deg) scale(0.94); }
+}
+@keyframes logout-shake {
+  0% { transform: rotate(-1deg); }
+  50% { transform: rotate(2deg); }
+  100% { transform: rotate(-1deg); }
+}
+@keyframes logout-flash {
+  0% { opacity: 0.4; }
+  100% { opacity: 0; }
+}
